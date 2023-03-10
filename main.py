@@ -9,13 +9,13 @@ ssh_port = ""
 #provide your public ip adress - you can lookup at wieistmeineip.at
 ip = ""
 #want to create the homeserver key on yourself? answer with True or False
-add_key=False
+add_key=True
 #if True insert your generated key here (generate it with pwgen -s 64 1)
 homeserver_key=""
 
 #bridges, set variable <true> if you want to install them or <false> e.g: mautrix-bridge=true
 mautrix_discord_bridge=True
-mautrix_signal_bridge=False
+mautrix_signal_bridge=True
 heisenberg_bridge=True
 #write your username in matrix format e.g @your-username:domain
 heisenbridge_owner=""
@@ -26,8 +26,8 @@ appservice_discord_brige_client_id="" #
 appservice_discord_bridge_token=""
 
 #want to run your own nginx server? set the ports where matrix-nginx should run and reverse proxy it from your nginx
-http_port=980
-https_port=9443
+http_port=
+https_port=
 
 if ip is None:
     print("ERROR: IP variable empty")
@@ -65,12 +65,12 @@ try:
     if not os.path.exists(yml_path):
         os.makedirs(yml_path)
         #os.mkdir(yml_path)
-        os.system("touch {}/foo.yml".format(yml_path))
+        os.system("touch {}/vars.yml".format(yml_path))
         os.system("touch {}/hosts".format(hosts_path))
         with open('{}/hosts'.format(hosts_path), 'w') as f:
             hosts_write = [
                 "[matrix_servers]\n",
-                "matrix.{} ansible_host={} ansible_port={} ansible_ssh_user_user=root".format(domain, ip, ssh_port)
+                "matrix.{} ansible_host={} ansible_port={} ansible_ssh_user=root".format(domain, ip, ssh_port)
             ]
             f.writelines(hosts_write)
 except OSError as e:
@@ -141,3 +141,7 @@ if http_port is not None:
         ]
         f.writelines(ports)
         f.close()
+
+
+os.system("just roles")
+os.system("just install-all")
