@@ -58,8 +58,9 @@ if key is None and add_key == False:
 elif key is not None and add_key == False:
     homeserver_key = key
 print(key)
-yml_path= "/home/{}/testing/matrix-docker-ansible-deploy/inventory/host_vars/matrix.{}".format(user, domain)
-hosts_path = "/home/{}/testing/matrix-docker-ansible-deploy/inventory/".format(user)
+file_path == os.path.realpath(__file__)
+yml_path= "{}/inventory/host_vars/matrix.{}".format(file_path, domain)
+hosts_path = "{}/inventory/".format(file_path)
 try:
     if not os.path.exists(yml_path):
         os.makedirs(yml_path)
