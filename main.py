@@ -58,7 +58,7 @@ if key is None and add_key == False:
 elif key is not None and add_key == False:
     homeserver_key = key
 print(key)
-file_path == os.path.realpath(__file__)
+file_path = os.path.dirname(os.path.realpath(__file__))
 yml_path= "{}/inventory/host_vars/matrix.{}".format(file_path, domain)
 hosts_path = "{}/inventory/".format(file_path)
 try:
